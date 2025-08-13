@@ -88,7 +88,7 @@ Use default SDR device, set gain to auto, bandwidth to 1.4 mHz and center freque
 
 `rtl_433 -g auto -s 1400000 -f 433900000` 
 
-Same as above but add autoleveling, and pipe to a tcp server on localhost port 8000
+Same as above but add autoleveling, and pipe in JSON format to a tcp server on localhost port 8000
 
 `rtl_433 -g auto -s 1400000 -f 433900000 -M level -Y auto -Y level=0 -Y autolevel -F json | nc -lk 127.0.0.1 8000`
 
