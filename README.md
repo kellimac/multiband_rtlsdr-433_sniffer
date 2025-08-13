@@ -37,13 +37,6 @@ and that the CPU % is normally between 40-55% on my Rasbperry Pi 2B.
 a service and then monitoring the CPU load used by the rtl_433 process to trigger a service
 kill and restart as needed.
 
-#### Updates
-- I will be adding details to this documentation and project, as this is just
-part of a larger system. I currently use node-red to display the data from
-this and other sources to monitor everything in my workshop from
-battery temperatures to background ionizing radiation counts. 
-
-If you appreciate my work and would like to support me: https://buymeacoffee.com/cativerse
 
 
 ###### Thanks to [@merbanan](https://github.com/merbanan) and contributors for their hard work on the [rtl_433 project](https://github.com/merbanan/rtl_433.git) which is required for this project
@@ -243,4 +236,12 @@ sudo systemctl start rtl433-sniff.service  # start the sniffer service manually
 sudo systemctl stop rtl433-sniff.service   # stop the sniffer service manually
 ```
 
+
+#### Updates
+- I will be adding details to this documentation and project, as this is just
+part of a larger system. I currently use node-red to display the data from
+this and other sources to monitor everything in my workshop from
+battery temperatures to background ionizing radiation counts. 
+
+If you appreciate my work and would like to support me: https://buymeacoffee.com/cativerse
 
