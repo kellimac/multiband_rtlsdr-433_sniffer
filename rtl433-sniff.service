@@ -22,6 +22,8 @@ Type=simple
 # set the output type tp json
 # pipe to an instance of nc that listens to port 8000 on IP address 10.101.5.100. This can be localhost, 127.0.0.1 or any other IP on your device
 # you will set your client devices to connect to this IP and port.
+# Therefore... EDIT THE FOLLOWING LINE after **rtl_433** to suit your needs
+# See examples in README.md
 ExecStart=/usr/bin/sh -c 'exec rtl_433 -d:72346005 -g 42 -s 1800000 -f 433920000 -f 912400000 -H 58 -M level -Y auto -Y level=0 -Y autolevel -F json | nc -lk 10.101.5.100 8000'
 # The following command stops the SDR receiver and nc tcp server processes by brute force
 # There are no doubt better ways to do this, especially if you are running multiple instances of rtl_433 on your system.
