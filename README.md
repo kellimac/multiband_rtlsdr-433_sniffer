@@ -152,6 +152,62 @@ pi       20330  0.0  0.0   7448   512 pts/0    S+   00:55   0:00 grep --color=au
 pi@sdrpi:~ $ 
 ```
 
+#### Successful tests
+If everything is working properly and with a decent antenna, the process should run and you should start to see telemetry from your devices (and probably your neighbors, too!)
+
+```rtl_433 -g 40 -s 1200000 -f 433920000 -f 915000000 -H 45 -M level -Y auto -Y level=0 -Y autolevel```
+
+Output:
+
+```
+pi@sdrpi:~ $ rtl_433 -g 40 -s 1200000 -f 433920000 -f 915000000 -H 45 -M level -Y auto -Y level=0 -Y autolevel
+rtl_433 version 25.02-37-gc60f574f branch master at 202507111104 inputs file rtl_tcp RTL-SDR SoapySDR with TLS
+Found Rafael Micro R820T tuner
+[SDR] Using device 0: Realtek, RTL2838UHIDIR, SN: 72346005, "Generic RTL2832U OEM"
+[R82XX] PLL not locked!
+Allocating 15 zero-copy buffers
+[Auto Level] Estimated noise level is -17.0 dB, adjusting minimum detection level to -14.0 dB
+[Auto Level] Estimated noise level is -18.6 dB, adjusting minimum detection level to -15.6 dB
+[Auto Level] Estimated noise level is -20.1 dB, adjusting minimum detection level to -17.1 dB
+[Auto Level] Estimated noise level is -21.3 dB, adjusting minimum detection level to -18.3 dB
+[Auto Level] Estimated noise level is -22.4 dB, adjusting minimum detection level to -19.4 dB
+[Auto Level] Estimated noise level is -24.2 dB, adjusting minimum detection level to -21.2 dB
+[Auto Level] Estimated noise level is -25.5 dB, adjusting minimum detection level to -22.5 dB
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+time      : 2025-08-13 01:15:08
+model     : Acurite-606TX id        : 165
+Channel   : 1            Battery   : 1             Button    : 0             Temperature: 27.7 C       Integrity : CHECKSUM
+Modulation: ASK          Freq      : 433.9 MHz
+RSSI      : -16.4 dB     SNR       : 14.9 dB       Noise     : -31.4 dB
+[Auto Level] Estimated noise level is -26.7 dB, adjusting minimum detection level to -23.7 dB
+[Auto Level] Estimated noise level is -27.8 dB, adjusting minimum detection level to -24.8 dB
+[Auto Level] Estimated noise level is -28.9 dB, adjusting minimum detection level to -25.9 dB
+[Auto Level] Estimated noise level is -29.9 dB, adjusting minimum detection level to -26.9 dB
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+time      : 2025-08-13 01:15:21
+model     : LaCrosse-TX141THBv2                    Sensor ID : 6c
+Channel   : 0            Battery   : 1             Temperature: 27.10 C      Humidity  : 67 %          Test?     : No            Integrity : CRC
+Modulation: ASK          Freq      : 433.8 MHz
+RSSI      : -8.6 dB      SNR       : 19.9 dB       Noise     : -28.5 dB
+[Auto Level] Estimated noise level is -28.4 dB, adjusting minimum detection level to -25.4 dB
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+time      : 2025-08-13 01:15:21
+model     : LaCrosse-TX141THBv2                    Sensor ID : 6c
+Channel   : 0            Battery   : 1             Temperature: 27.10 C      Humidity  : 67 %          Test?     : No            Integrity : CRC
+Modulation: ASK          Freq      : 433.8 MHz
+RSSI      : -8.5 dB      SNR       : 20.8 dB       Noise     : -29.4 dB
+[Auto Level] Estimated noise level is -29.5 dB, adjusting minimum detection level to -26.5 dB
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+time      : 2025-08-13 01:15:25
+model     : Nexus-TH     House Code: 126
+Channel   : 1            Battery   : 1             Temperature: 26.80 C      Humidity  : 39 %
+Modulation: ASK          Freq      : 433.9 MHz
+RSSI      : -18.1 dB     SNR       : 10.8 dB       Noise     : -28.9 dB
+^CSignal caught, exiting!
+pi@sdrpi:~ $ 
+```
+
+
 
 #### Running as a service with auto restart on failures
 
