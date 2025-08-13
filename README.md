@@ -84,7 +84,7 @@ pi@sdrpi:~ $
 
 Example test commands:
 
-Use default SDR decice, set gain to auto, bandwidth to 1.4 mHz and center frequency to 433.900 mHz. Output to console.
+Use default SDR device, set gain to auto, bandwidth to 1.4 mHz and center frequency to 433.900 mHz. Output to console.
 
 `rtl_433 -g auto -s 1400000 -f 433900000` 
 
