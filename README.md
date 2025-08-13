@@ -96,18 +96,88 @@ Use device 0, set gain to 49, bandwidth to 2.4 mHz, and hop between 315.000 mHz,
 
 ```rtl_433 -d 0 -g 49 -s 2400000 -H 33 -f 315000000 -f 433920000 -f 868000000``` 
 
+#### rtl_433 test example output
+
+```
+pi@sdrpi:~ $ rtl_433 -g 40 -s 1200000 -f 433920000 -f 915000000 -H 45 -M level -Y auto -Y level=0 -Y autolevel
+rtl_433 version 25.02-37-gc60f574f branch master at 202507111104 inputs file rtl_tcp RTL-SDR SoapySDR with TLS
+Found Rafael Micro R820T tuner
+[SDR] Using device 0: Realtek, RTL2838UHIDIR, SN: 72346005, "Generic RTL2832U OEM"
+[R82XX] PLL not locked!
+Allocating 15 zero-copy buffers
+[Auto Level] Estimated noise level is -17.0 dB, adjusting minimum detection level to -14.0 dB
+[Auto Level] Estimated noise level is -18.6 dB, adjusting minimum detection level to -15.6 dB
+[Auto Level] Estimated noise level is -20.1 dB, adjusting minimum detection level to -17.1 dB
+[Auto Level] Estimated noise level is -21.3 dB, adjusting minimum detection level to -18.3 dB
+[Auto Level] Estimated noise level is -22.4 dB, adjusting minimum detection level to -19.4 dB
+[Auto Level] Estimated noise level is -24.2 dB, adjusting minimum detection level to -21.2 dB
+[Auto Level] Estimated noise level is -25.6 dB, adjusting minimum detection level to -22.6 dB
+[Auto Level] Estimated noise level is -26.6 dB, adjusting minimum detection level to -23.6 dB
+[Auto Level] Estimated noise level is -27.8 dB, adjusting minimum detection level to -24.8 dB
+[Auto Level] Estimated noise level is -28.9 dB, adjusting minimum detection level to -25.9 dB
+[Auto Level] Estimated noise level is -29.9 dB, adjusting minimum detection level to -26.9 dB
+^CSignal caught, exiting!
+pi@sdrpi:~ $ 
+```
+Never use anything but CTRL-C to stop the rtl_433 process. Using CTRL-X or CTRL-Z may cause process to hang, which will
+hold your SDR dongle hostage until you kill the process completely.
+
+If this happens, you will get a device claim error.
+
+```
+pi@sdrpi:~ $ rtl_433 -g 40 -s 1200000 -f 433920000 -f 915000000 -H 45 -M level -Y auto -Y level=0 -Y autolevel
+rtl_433 version 25.02-37-gc60f574f branch master at 202507111104 inputs file rtl_tcp RTL-SDR SoapySDR with TLS
+usb_claim_interface error -6
+[sdr_open_rtl] Failed to open rtlsdr device #0.
+[sdr_open_rtl] Unable to open a device
+pi@sdrpi:~ $ 
+```
+
+#### Getting your dongle back by killing hung rtl_433 process
+
+1. Identify offending process by using ps aux command `ps aux | grep -e 'rtl'`
+2. Kill the offending process(es) with kill command `sudo kill -9 *process pid*`
+
+
+```
+pi@sdrpi:~ $ ps aux | grep -e 'rtl'
+root     20168  0.0  0.0   1972   416 ?        Ss   00:51   0:00 /usr/bin/sh -c exec rtl_433 -d:72346005 -g 42 -s 1800000 -f 433920000 -f 912400000 -H 58 -M level -Y auto -Y level=0 -Y autolevel -F json | nc -lk 10.1.5.85 8000
+root     20169 44.7  1.1  70812 10608 ?        Sl   00:51   1:31 rtl_433 -d:72346005 -g 42 -s 1800000 -f 433920000 -f 912400000 -H 58 -M level -Y auto -Y level=0 -Y autolevel -F json
+pi       20293  0.0  0.0   7448   488 pts/0    S+   00:54   0:00 grep --color=auto -e rtl
+pi@sdrpi:~ $ sudo kill -9 20168
+pi@sdrpi:~ $ sudo kill -9 20169
+kill: (20169): No such process
+pi@sdrpi:~ $ ps aux | grep -e 'rtl'
+pi       20330  0.0  0.0   7448   512 pts/0    S+   00:55   0:00 grep --color=auto -e rtl
+pi@sdrpi:~ $ 
+```
+
+
 #### Running as a service with auto restart on failures
 
 See [rtl433-sniff.service](https://github.com/kellimac/multiband_sdr_sniffer/blob/2ad2799d3eb7c22a944593eb7e1c75a818bbe041/rtl433-sniff.service)
 
-#### Add the monitoring script to crontab -e 
+
+#### Add the monitoring script to crontab
 This is a bash script named [sdr_monitor.sh](https://github.com/kellimac/multiband_sdr_sniffer/blob/3b59022a01c10568a71f932a8a668da4752e07e2/sdr_monitor.sh) that checks the rtl_433 process CPU time and stops/restarts the rtl433-sniff service if needed.
 This script can be located anywhere, but the cron job path must match the actual location.
 In this example, the script is located in /home/pi/ 
 
+
 ##### May require sudo/superuser privileges
+There is likely a way to allow a cron job not running as root to restart a service, but I just made my life easier by editing the root crontab
+
+run ```sudo crontab -e``` and add the following line
 
 `* * * * * bash /home/pi/sdr_monitor.sh`
+
+
+Note that enabling this cron job means the system will check once per minute to see if rtl_433 is running and will attempt to restart the rtl433-sniff service
+if it isn't. This may cause issues and confusion if you are doing something like testing rtl_433 commands or a new dongle, so you may need to temporarily 
+disable the monitoring cron job by running `sudo crontab -e` again and remming out the monitoring command if you run into this situation.
+
+`# * * * * * bash /home/pi/sdr_monitor.sh`
+
 
 #### Common commands
 ```
