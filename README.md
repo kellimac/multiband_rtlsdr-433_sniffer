@@ -19,6 +19,8 @@ part of a larger system. I currently use node-red to display the data from
 this and other sources to monitor everything in my workshop from
 battery temperatures to background ionizing radiation counts. 
 
+If you appreciate my work and would like to support me: https://buymeacoffee.com/cativerse
+
 
 ###### Thanks to [@merbanan](https://github.com/merbanan) and contributors for their hard work on the [rtl_433 project](https://github.com/merbanan/rtl_433.git) which is required for this project
 
