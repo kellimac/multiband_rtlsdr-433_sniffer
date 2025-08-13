@@ -82,12 +82,19 @@ rtl_433 version 25.02-37-gc60f574f branch master at 202507111104 inputs file rtl
 pi@sdrpi:~ $
 ```
 
-Sample test commands:
+Example test commands:
 
-`rtl_433 -g auto -s 1400000 -f 433900000` use default SDR decice, set gain to auto, bandwidth to 1.4 mHz and center frequency to 433.900 mHz
+Use default SDR decice, set gain to auto, bandwidth to 1.4 mHz and center frequency to 433.900 mHz. Output to console.
 
-`rtl_433 -g auto -s 1400000 -f 433900000 -M level -Y auto -Y level=0 -Y autolevel -F json | nc -lk 127.0.0.1 8000` same as above but add autoleveling, and pipe to a tcp server on localhost port 8000
+`rtl_433 -g auto -s 1400000 -f 433900000` 
 
+Same as above but add autoleveling, and pipe to a tcp server on localhost port 8000
+
+`rtl_433 -g auto -s 1400000 -f 433900000 -M level -Y auto -Y level=0 -Y autolevel -F json | nc -lk 127.0.0.1 8000`
+
+Use device 0, set gain to 49, bandwidth to 2.4 mHz, and hop between 315.000 mHz, 433.920 mHz and 868.000 mHz every 33 seconds. Output to console.
+
+```rtl_433 -d 0 -g 49 -s 2400000 -H 33 -f 315000000 -f 433920000 -f 868000000``` 
 
 #### Running as a service with auto restart on failures
 
