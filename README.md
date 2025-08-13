@@ -1,4 +1,4 @@
-# multiband_sdr_sniffer
+# multiband_rtlsdr-433_sniffer
 Use an RTL-SDR dongle to frequency hop as a service
 
 Casually coded by Kelli 'Katt' McMillan -- kelli@cativerse.com
