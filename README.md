@@ -100,7 +100,11 @@ Use device 0, set gain to 49, bandwidth to 2.4 mHz, and hop between 315.000 mHz,
 
 See [rtl433-sniff.service](https://github.com/kellimac/multiband_sdr_sniffer/blob/2ad2799d3eb7c22a944593eb7e1c75a818bbe041/rtl433-sniff.service)
 
-#### Add to crontab -e 
+#### Add the monitoring script to crontab -e 
+This is a bash script named [sdr_monitor.sh](https://github.com/kellimac/multiband_sdr_sniffer/blob/3b59022a01c10568a71f932a8a668da4752e07e2/sdr_monitor.sh) that checks the rtl_433 process CPU time and stops/restarts the rtl433-sniff service if needed.
+This script can be located anywhere, but the cron job path must match the actual location.
+In this example, the script is located in /home/pi/ 
+
 ##### May require sudo/superuser privileges
 
 `* * * * * bash /home/pi/sdr_monitor.sh`
